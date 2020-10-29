@@ -1,9 +1,7 @@
-<div class="page-width">
-  {% if section.settings.title != blank %}
-    <div class="section-header text-center">
-      <h2>{{ section.settings.title | escape }}</h2>
-    </div>
-  {% endif %}
+<div class="page-width featured-collection">
+  <h4 class="section-subtitle {% if section.settings.cursive %}cursive{% endif %}">{{ section.settings.subtitle | escape }}</h4>
+  <h2 class="h1 section-subtitle">{{ section.settings.title | escape }}</h2>
+
 
   {%- assign collection = collections[section.settings.collection] -%}
 
@@ -26,8 +24,77 @@
 
   <ul class="grid grid--uniform grid--view-items">
     {% for product in collection.products limit: product_limit %}
+    
       <li class="grid__item grid__item--{{section.id}} {{ grid_item_width }}">
         {% include 'product-card-grid', max_height: max_height, product: product, show_vendor: section.settings.show_vendor %}
+        
+        {% if section.settings.add-cart %}
+        {% capture "form_classes" -%}
+        product-form product-form-{{ section.id }}
+        product-form--payment-button-no-variants
+        {%- if current_variant.available == false %} product-form--variant-sold-out {%- endif -%}
+        {%- endcapture %}
+        {% form 'product', product, class:form_classes, novalidate: 'novalidate', data-product-form: '' %}
+        {% unless section_onboarding %}
+        {% unless product.has_only_default_variant %}
+        <div class="product-form__controls-group">
+          {% for option in product.options_with_values %}
+          <div class="selector-wrapper js product-form__item">
+            <label for="SingleOptionSelector-{{ section.id }}-{{ forloop.index0 }}">
+              {{ option.name }}
+            </label>
+            <select class="single-option-selector single-option-selector-{{ section.id }} product-form__input"
+              id="SingleOptionSelector-{{ section.id }}-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+              {% for value in option.values %}
+              <option value="{{ value | escape }}" {% if option.selected_value == value %} selected="selected" {% endif %}>
+                {{ value }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% endfor %}
+        </div>
+        {% endunless %}
+        
+        <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
+          {% for variant in product.variants %}
+          <option value="{{ variant.id }}" {%- if variant == current_variant %} selected="selected" {%- endif -%}>
+            {{ variant.title }} {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+          </option>
+          {% endfor %}
+        </select>
+        {% endunless %}
+        <div class="product-form__controls-group">
+          <div class="product-form__item">
+            <input type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1" pattern="[0-9]*"
+              class="product-form__input product-form__input--quantity" data-quantity-input>
+          </div>
+        </div>
+        
+        <div
+          class="product-form__error-message-wrapper product-form__error-message-wrapper--hidden{% if section.settings.enable_payment_button %} product-form__error-message-wrapper--has-payment-button{% endif %}"
+          data-error-message-wrapper role="alert">
+          <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+          {% include 'icon-error' %}
+          <span class="product-form__error-message"
+            data-error-message>{{ 'products.product.quantity_minimum_message' | t }}</span>
+        </div>
+        
+        <div class="product-form__controls-group product-form__controls-group--submit">
+          <div class="product-form__item product-form__item--submit
+                              product-form__item--payment-button
+                              {%- if product.has_only_default_variant %} product-form__item--no-variants {%- endif -%}">
+            <button type="submit" name="add"
+              aria-label="{{ 'products.product.add_to_cart' | t }}"
+              class="btn" {% if settings.enable_ajax %}aria-haspopup="dialog"
+              {% endif %} data-add-to-cart>
+              <span data-add-to-cart-text>
+                {{ 'products.product.add_to_cart' | t }}
+              </span>
+            </button>
+          </div>
+        </div>
+        {% endform %}
+        {% endif %}
       </li>
     {% else %}
 
@@ -92,52 +159,20 @@
     {
       "type": "text",
       "id": "title",
-      "label": {
-        "cs": "Nadpis",
-        "da": "Overskrift",
-        "de": "Titel",
-        "en": "Heading",
-        "es": "Título",
-        "fi": "Otsake",
-        "fr": "En-tête",
-        "it": "Heading",
-        "ja": "見出し",
-        "ko": "제목",
-        "nb": "Overskrift",
-        "nl": "Kop",
-        "pl": "Nagłówek",
-        "pt-BR": "Título",
-        "pt-PT": "Título",
-        "sv": "Rubrik",
-        "th": "ส่วนหัว",
-        "tr": "Başlık",
-        "vi": "Tiêu đề",
-        "zh-CN": "标题",
-        "zh-TW": "標題"
-      },
-      "default": {
-        "cs": "Propagovaná kolekce",
-        "da": "Udvalgt kollektion",
-        "de": "Vorgestellte Kategorie",
-        "en": "Featured collection",
-        "es": "Colección destacada",
-        "fi": "Esittelyssä oleva kokoelma",
-        "fr": "Collection en vedette",
-        "it": "Collezione in evidenza",
-        "ja": "特集コレクション",
-        "ko": "추천 컬렉션",
-        "nb": "Fremhevet samling",
-        "nl": "Uitgelichte collectie",
-        "pl": "Polecana kolekcja",
-        "pt-BR": "Coleção em destaque",
-        "pt-PT": "Coleção em destaque",
-        "sv": "Utvald kollektion",
-        "th": "คอลเลกชันแนะนำ",
-        "tr": "Öne çıkan koleksiyon",
-        "vi": "Bộ sưu tập nổi bật",
-        "zh-CN": "特色产品系列",
-        "zh-TW": "精選商品系列"
-      }
+      "label": "Heading",
+      "default": "Featured collection"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "subheading",
+      "default": "better ingredients better life"
+    },
+    {
+      "type": "checkbox",
+      "id": "cursive",
+      "label": "Subheading cursive",
+      "default": true
     },
     {
       "id": "collection",
@@ -255,6 +290,12 @@
         "zh-TW": "顯示產品廠商"
       },
       "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "add-cart",
+      "label": "Show add to cart button",
+      "default": true
     },
     {
       "type": "checkbox",

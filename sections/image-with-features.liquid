@@ -1,0 +1,138 @@
+<div class="page-width feature-row feature-section">
+    <h4 class="section-subtitle {% if section.settings.cursive %}cursive{% endif %}">{{ section.settings.subtitle | escape }}</h4>
+    <h2 class="h1 section-title">{{ section.settings.title | escape }}</h2>
+
+    <div class="feature-row__item big-img">
+        {% if section.settings.image != blank %}
+        {{ section.settings.image | img_url: '600x' | img_tag }}
+        {% endif %}
+
+
+        <div class="text">
+            {%- for block in section.blocks -%}
+            <div class="feature-row__text">
+                {% if block.settings.icon != blank %}
+                {{ block.settings.icon | img_url: '100x' | img_tag }}
+                {% endif %}
+                <div class="text">
+                    {% if block.settings.title != blank %}
+                    <h2 class="h3">{{ block.settings.title | escape }}</h2>
+                    {% endif %}
+                    {% if block.settings.info != blank %}
+                    <div class="rte rte-setting featured-row__subtext">{{ block.settings.info }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+    {%- capture ariaLabel -%}
+    {{- section.settings.button_label -}}
+    {%- if section.settings.button_link.type == 'frontpage_link' -%}
+    : {{ 'homepage.general.title' | t -}}
+    {%- elsif section.settings.button_link.type == 'catalog_link' -%}
+    : {{ 'collections.catalog.title' | t -}}
+    {%- elsif section.settings.button_link.object.title -%}
+    : {{ section.settings.button_link.object.title -}}
+    {%- endif -%}
+    {%- endcapture -%}
+
+    <a href="{{ section.settings.button_link }}" class="btn" aria-label="{{ ariaLabel }}"
+        style="color: {{ section.settings.color-button}}; background-color: {{section.settings.background-button}}">
+        {{- section.settings.button_label | escape -}}
+    </a>
+    {% endif %}
+
+</div>
+  
+  
+  
+  {% schema %}
+  {
+    "name": "Image with features",
+    "class": "index-section",
+    "max_blocks": 3,
+    "settings":
+    [
+        {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Image with text"
+        },
+        {
+            "type": "text",
+            "id": "subtitle",
+            "label": "subheading",
+            "default": "What's in our bars"
+        },
+        {
+            "type": "checkbox",
+            "id": "cursive",
+            "label": "Subheading cursive",
+            "default": true
+        },
+        {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label"
+        },
+        {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link"
+        },
+        {
+            "type": "color",
+            "id": "background-button",
+            "label": "Background button",
+            "default": "#f5a623"
+        },
+        {
+            "type": "color",
+            "id": "color-button",
+            "label": "Color button",
+            "default": "#ffffff"
+        }
+    ],
+    "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon (Image png)"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Image with text"
+        },
+        {
+          "type": "richtext",
+          "id": "info",
+          "label": "More Info"
+        }
+      ]
+    }
+  ],
+    "presets": [
+      {
+        "name": "Image with features",
+        "category": "Image"
+      }
+    ]
+  }
+  {% endschema %}
+  
