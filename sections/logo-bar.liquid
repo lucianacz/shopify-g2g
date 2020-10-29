@@ -1,9 +1,12 @@
-<div class="page-width">
-  {% if section.settings.title != blank %}
-    <div class="section-header text-center">
-      <h2>{{ section.settings.title | escape }}</h2>
-    </div>
-  {% endif %}
+<div class="page-width logos">
+    {% if section.settings.title != blank %}
+    <h4 class="section-subtitle {% if section.settings.cursive %}cursive{% endif %}">
+      {{ section.settings.subtitle | escape }}</h4>
+    {% endif %}
+    
+    {% if section.settings.title != blank %}
+    <h2 class="h1 section-title">{{ section.settings.title | escape }}</h2>
+    {% endif %}
 
   {% if section.blocks.size > 0 %}
     <ul class="logo-bar{% if section.settings.title_enable %} logo-bar--large{% endif %}">
@@ -34,81 +37,27 @@
 
 {% schema %}
 {
-  "name": {
-    "cs": "Seznam log",
-    "da": "Logoliste",
-    "de": "Logo-Liste",
-    "en": "Logo list",
-    "es": "Lista de logos",
-    "fi": "Logoluettelo",
-    "fr": "Liste des logos",
-    "it": "Elenco loghi",
-    "ja": "ロゴリスト",
-    "ko": "로고 목록",
-    "nb": "Logoliste",
-    "nl": "Logolijst",
-    "pl": "Lista logo",
-    "pt-BR": "Lista de logotipos",
-    "pt-PT": "Lista de logótipos",
-    "sv": "Logotyplista",
-    "th": "รายการโลโก้",
-    "tr": "Logo listesi",
-    "vi": "Danh sách logo",
-    "zh-CN": "logo 列表",
-    "zh-TW": "標誌清單"
-  },
+  "name": "Logo list",
   "class": "index-section",
   "max_blocks": 20,
   "settings": [
     {
       "type": "text",
       "id": "title",
-      "label": {
-        "cs": "Nadpis",
-        "da": "Overskrift",
-        "de": "Titel",
-        "en": "Heading",
-        "es": "Título",
-        "fi": "Otsake",
-        "fr": "En-tête",
-        "it": "Heading",
-        "ja": "見出し",
-        "ko": "제목",
-        "nb": "Overskrift",
-        "nl": "Kop",
-        "pl": "Nagłówek",
-        "pt-BR": "Título",
-        "pt-PT": "Título",
-        "sv": "Rubrik",
-        "th": "ส่วนหัว",
-        "tr": "Başlık",
-        "vi": "Tiêu đề",
-        "zh-CN": "标题",
-        "zh-TW": "標題"
-      },
-      "default": {
-        "cs": "Seznam log",
-        "da": "Logoliste",
-        "de": "Logo-Liste",
-        "en": "Logo list",
-        "es": "Lista de logos",
-        "fi": "Logoluettelo",
-        "fr": "Liste de logos",
-        "it": "Elenco loghi",
-        "ja": "ロゴリスト",
-        "ko": "로고 목록",
-        "nb": "Logoliste",
-        "nl": "Logolijst",
-        "pl": "Lista logo",
-        "pt-BR": "Lista de logotipos",
-        "pt-PT": "Lista de logótipos",
-        "sv": "Logotyplista",
-        "th": "รายการโลโก้",
-        "tr": "Logo listesi",
-        "vi": "Danh sách logo",
-        "zh-CN": "logo 列表",
-        "zh-TW": "標誌清單"
-      }
+      "label": "Heading",
+      "default": "FEAUTED LOCATIONS"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "subheading",
+      "default": "a few places you can find g2g bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "cursive",
+      "label": "Subheading cursive",
+      "default": true
     }
   ],
   "blocks": [
