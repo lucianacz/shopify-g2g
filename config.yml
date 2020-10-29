@@ -1,0 +1,7 @@
+development:
+  password: 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
+  theme_id: "114878677175"
+  store: g2g-bar.myshopify.com
+  ignore_files:
+  - config/settings_data.json
+  timeout: 1m0s

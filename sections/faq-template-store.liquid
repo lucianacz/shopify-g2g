@@ -1,0 +1,105 @@
+{% style %}
+.accordion{
+background-color: {{ section.settings.color-tabs}};
+color: {{ section.settings.color-typo}};
+}
+.accordion.active{
+background-color: {{ section.settings.color-tabs-active}};
+color: {{ section.settings.color-typo-active}};
+}
+
+.line{
+color: {{ section.settings.color-line }};
+}
+
+{% endstyle %}
+
+
+<div class="section-accordion">
+    <div class="cont_accordion">
+        <h3>{{ section.settings.subtitle }}</h3>
+        <div class="line"></div>
+        {%- for block in section.blocks -%}
+        <div class="tab">
+            <button class="accordion"> {{ block.settings.question }} <span
+                    class="icon-acc">{%render 'arrow-icon'%}</span></button>
+            <div class="panel">
+                {{ block.settings.answer }}
+            </div>
+        </div>
+        {%- endfor -%}
+    </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "STORAGE & SHELF-LIFE",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Subtitle"
+        },
+        {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Subtitle",
+            "default": "STORAGE & SHELF-LIFE"
+        },
+        {
+            "type": "color",
+            "label": "Color line",
+            "id": "color-line"
+        },
+        {
+            "type": "header",
+            "content": "Color tabs normal"
+        },
+        {
+        "type": "color",
+        "label": "Background",
+        "id": "color-tabs"
+        },
+        {
+            "type": "color",
+            "label": "Font",
+            "id": "color-typo"
+        },
+        {
+            "type": "header",
+            "content": "Color tabs active"
+        },
+        {
+            "type": "color",
+            "label": "Background",
+            "id": "color-tabs-active"
+        },
+        {
+            "type": "color",
+            "label": "Font",
+            "id": "color-typo-active"
+        }
+    ],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "Item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "question",
+            "label": "Question",
+            "default": "Ask a question"
+          },
+          {
+            "type": "richtext",
+            "id": "answer",
+            "label": "Answer",
+            "default": "<p>Write the answer</p>"
+          }
+        ]
+      }
+    ]
+  }
+  {% endschema %}
+
