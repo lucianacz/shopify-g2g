@@ -45,7 +45,7 @@ cursive;
 }
 
 .section-subtitle {
-  font-size: 34px;
+  font-size: 30px;
   font-weight: normal;
   text-shadow: none;
 }
@@ -274,6 +274,54 @@ cursive;
       font-size: 10px;
     }
   }
+}
+
+//LOGO BAR
+.logos{
+  text-align: center;
+} 
+.logo-bar{
+  width: 90%;
+  margin: auto;
+  max-width: 1300px;
+  .slick-track {
+    display: flex;
+    align-items: center;
+  }
+
+  .slick-arrow {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 30;
+  }
+
+  .slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus{
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .slick-prev {
+    left: 0;
+    &::before {
+      content: "▴";
+      transform: rotate(270deg);
+      color: white;
+    }
+  }
+
+  .slick-next {
+    right: 0;
+    &::before {
+      content: "▴";
+      transform: rotate(90deg);
+      color: white;
+    }
+  }
+
+  
 }
 
 
