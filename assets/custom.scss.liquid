@@ -5,23 +5,18 @@
 // Default Colors
 $black: #000000;
 $white: #ffffff;
-$light-gray: #f9f9f9;
-$grey: #b9b9b9;
+$light-gray: #e3e6ea;
+$gray: #b9b9b9;
 $dark-gray: #080808;
 $black-gray: #1a1a1a;
 $orange: #f58600;
-$middle-gray: #343535;
+$middle-gray: #3d4247;
 $red: #ff0000;
 
-// Helper Colors
-$bright-blue: #008bcd;
-$dodger-blue: #0189ca;
-$dark-blue: #006596;
-$yellow: #f5e842;
-$middle-gray: #343535;
-
-// Fonts
-
+// Transition
+html {
+  scroll-behavior: smooth;
+}
 
 // Viewport Breakpoints
 $small: 481px;
@@ -377,7 +372,7 @@ cursive;
   }
 }
 
-// AMBASSADORS
+/* ------- AMBASSADORS -------- */
 // FEATURED PRODUCT
 .index-section--featured-product {
   .product-single__title {
@@ -455,5 +450,171 @@ cursive;
 
   .featured-row__subtext{
     font-size: 15px;
+  }
+}
+
+/* ------- RECIPIES -------- */
+//HERO
+.img-hero {
+  display: flex !important;
+  align-items: center;
+  padding-bottom: 0;
+  flex-wrap: wrap;
+
+  .hero-background {
+    height: 350px;
+  }
+
+  .hero__inner {
+    width: 100%;
+    margin-bottom: 30px;
+    .h1, a {
+      margin: auto 30px;
+    }
+  }
+
+  @media screen and (min-width: $xlarge) {
+    padding-right: 0 !important;
+
+    .hero-background {
+      width: 70%;
+      height: 400px;
+    }
+
+    .hero__inner {
+      padding-top: 100px;
+      width: 30%;
+      height: 400px;
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.preview-bar-iframe{
+  box-shadow: none;
+}
+
+.section-ingredients{
+  display: flex !important;
+  flex-wrap: wrap;
+
+  .product{
+    margin-top: 40px;
+  }
+
+  @media screen and (min-width: $large) {
+    .ingredients{
+      width: 40%;
+    }
+    .product{
+      width: 60%;
+      margin-top: 0;
+    }
+  }
+
+
+.ingredients{
+  strong{
+    color: $middle-gray;
+  }
+}
+
+  .product-single__description {
+    font-size: 13px;
+  }
+  .product-single__title{
+    font-size: 20px;
+  }
+  .rte{
+    margin-bottom: 0;
+  }
+}
+
+.directions{
+  margin-top: 40px;
+}
+
+.section-title-contact {
+  font-size: 1.8em;
+  text-align: center;
+
+  @media screen and (min-width: $medium) {
+    font-size: 2em;
+  }
+}
+.contact-style {
+  input::placeholder,
+  textarea::placeholder {
+    color: $gray;
+  }
+
+  input,
+  textarea {
+    border-radius: 5px;
+    border-color: $gray;
+  }
+  .btn{
+    margin: auto;
+    display: flex;
+    padding: 10px 40px;
+  }
+}
+
+/* ------- WHERE TO FIND -------- */
+// logos where
+
+.logos-where {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  .featured-image {
+    width: 45%;
+    margin: 30px auto;
+    @media screen and (min-width: $medium){
+      width: 30%;
+    }
+    img {
+      width: 90%;
+      margin: auto;
+    }
+  }
+}
+
+.slide-where {
+    height: 500px;
+
+  .slideshow__slide {
+    height: 500px;
+
+  }
+
+  .background-text {
+    background-color: rgba(255, 255, 255, 0.86);
+    padding: 50px;
+
+    .h1 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 15px;
+    }
+
+    @media screen and (min-width: $large) {
+      background-color: $white;
+      width: 55%;
+
+      .h1 {
+        font-size: 42px;
+        margin-bottom: 30px;
+      }
+
+      p {
+        font-size: 17px;
+      }
+    }
   }
 }

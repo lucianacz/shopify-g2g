@@ -1,0 +1,252 @@
+{%- if section.settings.slideshow_height == 'adapt' -%}
+  {% comment %}
+    'min_aspect_ratio' is the minimum aspect ratio of images shown without
+    whitespace when 'slideshow_height' is set to 'adapt'.
+    The aspect ratio values for the first image in the slideshow will be used
+    unless it is blank, in that case a ratio of 2:1 will be used.
+  {% endcomment %}
+
+  {%- assign first_block = section.blocks[0] -%}
+  {%- if first_block.settings.image.aspect_ratio == blank -%}
+    {%- assign min_aspect_ratio = 2.0 -%}
+  {%- else -%}
+    {%- assign min_aspect_ratio = first_block.settings.image.aspect_ratio -%}
+  {%- endif -%}
+  {% assign wrapper_height = 100 | divided_by: min_aspect_ratio %}
+{%- endif -%}
+
+{%- assign text_alignments = section.settings.text_alignment | split: ' ' -%}
+{%- assign text_horizontal_alignment = text_alignments.first -%}
+{%- assign text_vertical_alignment = text_alignments.last | strip -%}
+
+<div data-section-id="{{ section.id }}" data-section-type="slideshow-section">
+  {%- if section.blocks.size > 0 -%}
+  <div id="SlideshowWrapper-{{ section.id }}" class="slideshow-wrapper" role="region" aria-label="slideshow"
+    aria-describedby="slideshow-info" tabindex="-1" data-slider>
+    <div
+      class="slideshow slideshow--{{ section.settings.slideshow_height }}{% if display_controls %} slideshow--display-controls{% endif %}"
+      id="Slideshow-{{ section.id }}" data-autorotate="{{ section.settings.autorotate }}" data-slider-container
+      data-speed="{{ section.settings.autorotate_speed | times: 1000 }}"
+      data-adapt-height="{% if section.settings.slideshow_height == 'adapt' %}true{% else %}false{% endif %}"
+      data-slide-nav-a11y="{{ 'sections.slideshow.load_slide' | t: slide_number: '[slide_number]' }}"
+      {% if section.settings.slideshow_height == 'adapt' %}data-min-aspect-ratio="{{ min_aspect_ratio }}"
+      style="height: {{- wrapper_height -}}vw" {% endif %}>
+      {%- for block in section.blocks -%}
+      {%- assign block_image = block.settings.image -%}
+      <div id="slickSlide-{{ block.id }}"
+        class="slideshow__slide slideshow__slide--{{ block.id }}{% if forloop.first %} slideshow__slide--active{% endif %}"
+        data-slider-slide-index="{{ forloop.index0 }}" data-slider-item {{ block.shopify_attributes }}>
+        {% if block_image == blank %}
+        <div class="slideshow__image slideshow-image-amb js">
+          <div class="placeholder-background">
+            {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+            {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+          {% if section.settings.show_overlay %}<div class="slideshow__overlay"></div>{% endif %}
+        </div>
+        {% else %}
+        <div {% unless block_image.alt == blank %} role="img" aria-label="{{ block_image.alt | escape }}"
+          data-alt="{{ block_image.alt | escape }}" {% endunless %}
+          class="slideshow__image slideshow-image-amb box ratio-container lazyload{% unless forloop.first %} lazypreload{% endunless %} js"
+          data-bg="{{ block_image | img_url: '300x300' }}" data-bgset="{% include 'bgset', image: block_image %}"
+          data-sizes="auto" data-parent-fit="contain" style="background-position: {{ block.settings.alignment }};"
+          data-image-loading-animation>
+          {% if section.settings.show_overlay %}<div class="slideshow__overlay"></div>{% endif %}
+        </div>
+        {% endif %}
+
+        <noscript>
+          <div class="slideshow__image" {% if block_image %}{% unless block_image.alt == blank %} role="img"
+            aria-label="{{ block_image.alt | escape }}" {% endunless %}
+            style="background-image: url('{{ block_image | img_url: '2048x' }}'); background-position: {{ block.settings.alignment }};"
+            {% endif %}>
+            {% if block_image == blank %}
+            <div class="placeholder-background">
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            {% endif %}
+          </div>
+        </noscript>
+
+        <div class="slideshow__text-wrap slideshow__text-wrap--desktop">
+          <div
+            class="slideshow__text-content slideshow__text-content--vertical-{{ text_vertical_alignment }} text-{{ text_horizontal_alignment }}">
+            <div class="page-width">
+              {% unless block.settings.slide_title == blank and block.settings.subheading == blank %}
+              <div class="slideshow__text-content-list background-text">
+                {%- unless block.settings.slide_title == blank -%}
+                  <h2 class="h1" style="color: {{ block.settings.color }}">
+                    {{ block.settings.slide_title | escape }}
+                  </h2>
+                {%- endunless -%}
+                {%- unless block.settings.subheading == blank -%}
+               
+                    {{ block.settings.subheading }}
+             
+                {%- endunless -%}
+              {% endunless %}
+              </div>
+              {%- assign show_link_button = false -%}
+              {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+              {%- assign show_link_button = true -%}
+              {%- endif -%}
+              {%- if show_link_button -%}
+              <div
+                class="slideshow__btn-wrapper{% if block.settings.slide_title != blank or block.settings.subheading != blank %} slideshow__btn-wrapper--push{% endif %}">
+                <a href="#about" class="btn">
+                  {{ block.settings.button_label | escape }}
+                </a>
+              </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+    <div class="slideshow__controls">
+      {%- if section.blocks.size > 1 -%}
+      {%- assign arrows_width = section.blocks.size | times: 18 | plus: 115 -%}
+      <div class="slideshow__arrows" style="width: {{- arrows_width -}}px">
+        <button class="slideshow__arrow slideshow__arrow-previous"
+          aria-label="{{ 'sections.slideshow.previous_slide' | t }}"
+          data-slider-button>{% include 'icon-chevron-left' %}</button>
+        <button class="slideshow__arrow slideshow__arrow-next" aria-label="{{ 'sections.slideshow.next_slide' | t }}"
+          data-slider-button data-slider-button-next>{% include 'icon-chevron-right' %}</button>
+
+        <ul class="slick-dots" data-slider-indicators>
+          {%- for block in section.blocks -%}
+          <li{% if forloop.first %} class="slick-active" {% endif %} data-slider-indicator>
+            <a href="#Slideshow-{{ section.id }}"
+              aria-label="{{ 'sections.slideshow.load_slide' | t: slide_number: forloop.index }}"
+              data-slide-number="{{ forloop.index0 }}" aria-controls="slickSlide-{{ block.id }}"></a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      {%- if section.settings.autorotate -%}
+      <button type="button" class="slideshow__pause" data-id="{{ section.id }}" aria-live="polite" aria-pressed="false"
+        data-slider-pause>
+        <span class="slideshow__pause-stop">
+          {% include 'icon-pause' %}
+          <span class="icon__fallback-text">{{ 'sections.slideshow.pause_slideshow' | t }}</span>
+        </span>
+        <span class="slideshow__pause-rotate">
+          {% include 'icon-play' %}
+          <span class="icon__fallback-text">{{ 'sections.slideshow.rotate_slideshow' | t }}</span>
+        </span>
+      </button>
+      {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+  {%- endif -%}
+
+  {% if section.blocks.size == 0 %}
+  <div class="placeholder-noblocks">
+    {{ 'homepage.onboarding.no_content' | t }}
+  </div>
+  {% endif %}
+</div>
+
+
+{% schema %}
+{
+  "name": "Slideshow",
+  "class": "index-section index-section--flush index-section--slideshow slide-where",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "select",
+      "id": "slideshow_height",
+      "label":"Slide height",
+      "default": "adapt",
+      "options": [
+        {
+          "label": "Adapt to first image",
+          "value": "adapt"
+        },
+        {
+          "label":"Small",
+          "value": "small"
+        },
+        {
+          "label": "Medium",
+          "value": "medium"
+        },
+        {
+          "label":"Large",
+          "value": "large"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "default": "left center",
+      "options": [
+        {
+          "label": "Left",
+          "value": "left center"
+        },
+        {
+          "label": "Center",
+          "value": "center center"
+        },
+        {
+          "label": "Right",
+          "value": "right center"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "Show overlay",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autorotate",
+      "label": "Auto-rotate slides",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autorotate_speed",
+      "label": "Change slides every",
+      "max": 9,
+      "min": 3,
+      "step": 2,
+      "unit": " s",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "slide_title",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Subheading"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

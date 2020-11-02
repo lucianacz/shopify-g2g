@@ -15,7 +15,7 @@
 {% endstyle %}
 
 
-<div class="page-width feature-row" style="background-color: {{ section.settings.background-color}};">
+<div class="page-width feature-row" id="about" style="background-color: {{ section.settings.background-color}};">
     {% capture image_layout %}
       <div class="feature-row__item">
         {% if section.settings.image != blank %}
@@ -69,7 +69,7 @@
             {%- endif -%}
           {%- endcapture -%}
   
-          <a href="{{ section.settings.button_link }}"
+          <a target="_blank" href="{{ section.settings.button_link }}"
             class="btn"
             aria-label="{{ ariaLabel }}">
             {{- section.settings.button_label | escape -}}

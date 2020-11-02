@@ -1,0 +1,31 @@
+<div class="page-width logos-where">
+    {%- if section.blocks.size > 0 -%}
+        {% for block in section.blocks %}
+            <div class="featured-image">
+                {{ block.settings.logo | img_url: '200x' | img_tag }}
+            </div>
+        {% endfor %}
+    {%- endif -%}
+    </div>
+
+
+    {% schema %}
+    {
+        "name": "Logos",
+        "class": "index-section",
+        "settings": [],
+        "blocks": [
+        {
+            "type": "Logo",
+            "name": "Logo",
+            "settings": [
+            {
+                "type": "image_picker",
+                "id": "logo",
+                "label": "Logo"
+            }
+          ]
+        }
+    ]
+    }
+    {% endschema %}

@@ -1,10 +1,15 @@
+<div class="section-ingredients">
 {%- assign product = all_products[section.settings.featured_product] -%}
 
 {% if product == empty %}
   {%- assign section_onboarding = true -%}
 {% endif %}
+<div class="ingredients">
+  <h2 class="nickname">INGREDIENTS</h2>
+  {{ section.settings.ingredients }}
+</div>
 
-<div class="page-width" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-ajax-enabled="{{ settings.enable_ajax }}">
+<div class="product" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-ajax-enabled="{{ settings.enable_ajax }}">
   {% comment %}
     Get first variant, or deep linked one
   {% endcomment %}
@@ -145,7 +150,7 @@
           {%- assign price = 1999 -%}
           {%- assign available = true -%}
         {% endunless %}
-      <h2 class="nickname" style="color: {{section.settings.color}}">{{ section.settings.nickname }}</h2>
+      <h2 class="nickname">{{ section.settings.nickname }}</h2>
 
         <h2 class="visually-hidden">{{ 'sections.featured_product.title' | t }}</h2>
         <h3 class="h1 product-single__title">
@@ -156,11 +161,6 @@
           {% endunless %}
         </h3>
         <div class="featured-product__price">
-        {% style %}
-        .featured-product__price .price-item{
-            color: {{section.settings.color}}
-        }
-        {% endstyle %}
             {% include 'product-price', variant: current_variant, product: product, show_vendor: section.settings.show_vendor %}
           </div>
         <div class="product-single__description rte">
@@ -349,11 +349,23 @@
   ]
 }
 </script>
+</div>
+
+
+{% if section.settings.directions != blank %}
+<div class="directions">
+  <h2 class="nickname">DIRECTIONS</h2>
+  <div class="ingredients">
+    {{ section.settings.directions }}
+  </div>
+</div>
+{% endif %}
+
 
 {% schema %}
 {
   "name": "Featured product",
-  "class": "index-section index-section--featured-product",
+  "class": "index-section page-width",
   "settings": [
     {
       "type": "product",
@@ -364,13 +376,7 @@
         "type": "text",
         "id": "nickname",
         "label": "Subheading",
-        "default": "JAKE'S FAVORITE BAR"
-    },
-    {
-        "type": "color",
-        "id": "color",
-        "label": "Color section",
-        "default": "#479a9a"
+        "default": "BAR IN RECIPE"
     },
     {
       "type": "checkbox",
@@ -429,6 +435,16 @@
       "id": "enable_video_looping",
       "label": "Enable video looping",
       "default": false
+    },
+    {
+      "type": "richtext",
+      "id": "ingredients",
+      "label": "Ingredients"
+    },
+    {
+      "type": "richtext",
+      "id": "directions",
+      "label": "Directions"
     }
   ]
 }

@@ -1,0 +1,37 @@
+<div class="page-width">
+  {% if section.settings.subtitle != blank %}
+  <h4 class="section-subtitle {% if section.settings.cursive %}cursive{% endif %}" style="text-align: center;">
+    {{ section.settings.subtitle | escape }}</h4>
+  {% endif %}
+
+  {% if section.settings.title != blank %}
+  <h2 class="section-title-contact">{{ section.settings.title | escape }}</h2>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Title",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "COMMENTS & SUGGESTIONS"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "subheading",
+        "default": "please feel free to leave"
+      },
+      {
+        "type": "checkbox",
+        "id": "cursive",
+        "label": "Subheading cursive",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}
