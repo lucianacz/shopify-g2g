@@ -56,9 +56,8 @@
 
     {% schema %}
     {
-        "name": "Gallery",
+        "name": "Title",
         "class": "index-section",
-        "max_blocks": 3,
         "settings": [
         {
         "type": "text",
@@ -79,59 +78,10 @@
         "default": true
         }
         ],
-        "blocks": [
-            {
-            "type": "image",
-            "name": "Image",
-            "settings": [
-            {
-            "type": "image_picker",
-            "id": "image",
-            "label": "Image"
-            },
-            {
-            "type": "select",
-            "id": "number",
-            "label": "Number",
-            "options": [
-                {
-                "value": "1",
-                "label": "1"
-                },
-                {
-                "value": "2",
-                "label": "2"
-                },
-                {
-                "value": "3",
-                "label": "3"
-                }
-              ]
-            },
-            {
-                "type": "color",
-                "id": "color",
-                "label": "Background number",
-                "default": "#f3a633"
-            },
-            {
-                "type": "color",
-                "id": "font-color",
-                "label": "Color number",
-                "default": "#ffffff"
-            },
-            {
-            "type": "text",
-            "id": "text",
-            "label": "Heading"
-            }
-          ]
-        }
-        ],
         "presets": [
             {
-            "name": "Brand features",
-            "category": "Image"
+            "name": "Title",
+            "category": "Text"
             }
         ]
     }

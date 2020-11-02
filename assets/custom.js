@@ -14,6 +14,8 @@ for (i = 0; i < acc.length; i++) {
   });
 }
 
+
+//SLICK
 $('.logo-bar').slick({
   dots: false,
   arrows: true,
@@ -35,3 +37,5 @@ $('.logo-bar').slick({
       }
   ]
 });
+
+
