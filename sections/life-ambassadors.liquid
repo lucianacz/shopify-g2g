@@ -1,0 +1,92 @@
+<div class="page-width">
+<div class="text">
+    {% if section.settings.title != blank %}
+    <h4 class="section-subtitle {% if section.settings.cursive %}cursive{% endif %}">
+        {{ section.settings.subtitle | escape }}</h4>
+    {% endif %}
+
+    {% if section.settings.title != blank %}
+    <h2 class="h1 section-title">{{ section.settings.title | escape }}</h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+    <p>{{ section.settings.description }}</p>
+    {% endif %}
+</div>
+
+<div class="blocks">
+    {%- if section.blocks.size > 0 -%}
+    {%- for block in section.blocks -%}
+    <div class="item">
+        <a href="{{ block.settings.url }}">
+        {{ block.settings.photo | img_url: '300x' | img_tag}}
+        <h4>{{ block.settings.name }}</h4>
+        <p>{{ block.settings.summary}}</p>
+    </a>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+</div>
+{% schema %}
+{
+  "name": "Ambassadors",
+  "class": "index-section life-ambassadors",
+  "max_blocks": 6,
+  "settings": [
+        {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "AMBASSADORS"
+        },
+        {
+        "type": "text",
+        "id": "subtitle",
+        "label": "subheading",
+        "default": "meet the g2g bar"
+        },
+        {
+        "type": "checkbox",
+        "id": "cursive",
+        "label": "Subheading cursive",
+        "default": true
+        },
+        {
+        "type": "richtext",
+        "id": "description",
+        "label": "label",
+        "default": "<p>If you are interested in joining our team, please click the button right below!</p>"
+        }
+    ],
+    "blocks": [
+    {
+        "type": "Ambassadors",
+        "name": "Ambassador",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "photo",
+                "label": "Photo"
+            },
+            {
+                "type": "text",
+                "id": "name",
+                "label": "Name"
+            },
+            {
+                "type": "text",
+                "id": "summary",
+                "label": "Summary"
+            },
+            {
+                "type": "url",
+                "id": "url",
+                "label": "Link"
+            }
+        ]
+    }
+  ]
+}
+{% endschema %}

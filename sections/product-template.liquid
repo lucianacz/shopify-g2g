@@ -188,11 +188,33 @@
                 </option>
               {% endfor %}
             </select>
+            <div class="product-single__description rte">
+              {{ product.description }}
+            </div>
 
+            <div class="hr-line"></div>
+
+            <div class="icons-product">
+            {% if show_warranty != "" %}
+            <div class="icon-product">
+            <svg width="1.2em" height="1.2em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="heart"><path fill="none" stroke="#000" stroke-width="1.03" d="M10,4 C10,4 8.1,2 5.74,2 C3.38,2 1,3.55 1,6.73 C1,8.84 2.67,10.44 2.67,10.44 L10,18 L17.33,10.44 C17.33,10.44 19,8.84 19,6.73 C19,3.55 16.62,2 14.26,2 C11.9,2 10,4 10,4 L10,4 Z"></path></svg>
+            <p>{{ section.settings.show_warranty}}</p>
+            </div>
+            {% endif %}
+
+            {% if show_shipping != "" %}
+            <div class="icon-product">
+            <!-- <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 446.415 446.415" style="enable-background:new 0 0 446.415 446.415;" xml:space="preserve"><path d="M443.215,199.258l-64-37.6l64-37.6c3.2-1.6,4-5.2,2.4-8c-0.4-0.8-1.2-1.6-2-2l-72.4-42.4l-72.8-42.8c-2-1.2-4-1.2-6,0    l-69.2,40.8l-69.6-40.8c-1.6-1.2-4-1.2-6,0l-72.4,42.8l-72,42.4c-0.8,0.4-1.6,1.2-2,2c-1.6,2.8-0.8,6.4,2,8l64,37.6l-64.4,37.6    c-2.8,1.6-3.6,5.2-2,8c0.4,0.8,1.2,1.6,2,2l69.6,40.8v79.2c0,2,1.2,4,2.8,4.8l144,83.2c0.4,0,0.4,0.4,0.8,0.4c0,0,0.4,0,0.4,0.4    c0.8,0.4,1.2,0.4,2,0.4s1.2,0,2-0.4c0,0,0.4,0,0.4-0.4c0.4,0,0.4,0,0.8-0.4l143.6-83.2c2-1.2,2.8-3.2,2.8-4.8v-78.4l71.2-41.6    c0.8-0.4,1.6-1.2,2-2C446.816,204.458,446.015,200.858,443.215,199.258z M295.616,40.458l69.6,40.8l64,37.6l-61.2,36l-69.6-40.8    l-64-37.6L295.616,40.458z M229.215,86.458l63.6,37.6l64,37.6l-64,37.6l-20.4,12l-43.2-25.2V86.458z M17.215,118.858l64-37.6    l69.6-40.8l61.2,36l-64,37.6l-69.6,40.8L17.215,118.858z M217.215,86.458v99.6l-43.2,25.2l-20.4-12l-64-37.6l64-37.6    L217.215,86.458z M81.215,241.658l-64-37.6l61.2-36l69.6,40.8l64,37.6l-61.2,36l-69.2-40.4L81.215,241.658z M216.415,402.858    l-132.4-76.8v-69.2l63.6,37.6c2,1.2,4,1.2,6,0l62.8-36.8V402.858z M223.215,240.058l-37.6-22l37.6-22l37.6,22L223.215,240.058z     M360.816,326.058l-132.4,76.8v-146.8l64.4,38c1.6,1.2,4,1.2,6,0l62-36.4V326.058z M365.215,241.658l-2,1.2l-67.6,39.6l-61.2-36    l64-37.6l69.6-40.8l61.2,36L365.215,241.658z"/></svg> -->
+            <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 392.6 392.6" style="enable-background:new 0 0 392.6 392.6;" xml:space="preserve"><path d="M387.1,99.4c-0.4-0.8-0.4-1.2-1.2-2c-0.4-0.8-1.2-1.2-2.4-1.6l-91.6-47.6L199.1,0.6c-1.6-0.8-3.6-0.8-5.2,0l-93.2,47.6    l-92,47.6c-1.2,0.4-2.4,1.6-2.8,2.8c-0.4,0.8-0.4,1.2-0.8,2v0.4v190.4c0,2,1.2,4,3.2,5.2l185.2,94.8c0,0,0.4,0,0.4,0.4    c0,0,0.4,0,0.4,0.4c0.8,0.4,1.2,0.4,2,0.4s1.2,0,2-0.4c0,0,0.4,0,0.4-0.4c0,0,0.4,0,0.4-0.4l185.2-94.8c2-1.2,3.2-3.2,3.2-5.2V101    C387.5,100.2,387.5,99.8,387.1,99.4z M196.3,12.2l90,46.4l82.8,42.4l-56.8,29.2L139.5,41.4L196.3,12.2z M271.5,163.8l20-10.4    l13.2-6.8v24.8l-10.8-4.8c-2.4-1.2-5.2-0.4-6.8,1.6L271.9,187v-23.2H271.5z M106.3,58.6l20.4-10.4l172.8,88.4l-33.6,17.6    L93.1,65.4L106.3,58.6z M190.7,377.4l-174-89.6V110.6l84.4,43.2l89.6,46V377.4z M196.3,189.8l-90-46.4L23.5,101l56.8-29.2    l172.8,88.8L196.3,189.8z M375.9,288.2l-174,88.8V199.8l58.4-30v33.6c0,3.2,2.4,5.6,5.6,5.6c2,0,3.6-0.8,4.8-2.4l22.4-27.6    l15.2,6.4c2.8,1.2,6.4,0,7.6-3.2c0.4-0.4,0.4-1.2,0.4-2V141l59.6-30.4V288.2z"/></svg>
+            <p>{{ section.settings.show_shipping}}</p>
+            </div>
+            {% endif %}
+            </div>
+
+            <div class="container-price">
             {% if section.settings.show_quantity_selector %}
               <div class="product-form__controls-group">
                 <div class="product-form__item">
-                  <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
                   <input type="number" id="Quantity-{{ section.id }}"
                     name="quantity" value="1" min="1" pattern="[0-9]*"
                     class="product-form__input product-form__input--quantity" data-quantity-input
@@ -237,6 +259,7 @@
                 {% endif %}
               </div>
             </div>
+          </div>
           {% endform %}
         </div>
 
@@ -267,15 +290,55 @@
         >
         </div>
 
-        <div class="product-single__description rte">
-          {{ product.description }}
-        </div>
 
         {% if section.settings.show_share_buttons %}
           {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product.featured_media %}
         {% endif %}
     </div>
   </div>
+
+  {% render 'product-features' %}
+
+  <div class="metafields-product">
+    {% if product.metafields.global.ingredients != blank and product.metafields.global.vitamins != blank and product.metafields.global.allergen != blank  %}
+    <div class="description-meta">
+      <h3>More details</h3>
+      <div class="ingredients">
+        <h4>Ingredients</h4>
+        {{ product.metafields.global.ingredients }}
+      </div>
+  
+      <div class="blocks-description">
+        <div class="block-description">
+          <h4>Vitamins & Minerals </h4>
+          {{ product.metafields.global.vitamins }}
+        </div>
+  
+  
+        <div class="block-description">
+          <h4>Allergen statement </h4>
+          {{ product.metafields.global.allergen }}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  
+    <div class="meta-photos">
+      {% if product.metafields.detail.photo != blank  %}
+      {{ product.metafields.detail.photo }}
+      {% endif %}
+      {% if product.metafields.detail.photo2 != blank  %}
+      {{ product.metafields.detail.photo2 }}
+      {% endif %}
+    </div>
+  
+  </div>
+  
+  
+  
+
+
+
 </div>
 
 {% unless product == empty %}
@@ -289,31 +352,12 @@
 
 
 
+
+
 {% schema %}
 {
-  "name": {
-    "cs": "Stránky produktů",
-    "da": "Produktsider",
-    "de": "Produktseiten",
-    "en": "Product pages",
-    "es": "Páginas de productos",
-    "fi": "Tuotesivut",
-    "fr": "Pages de produits",
-    "it": "Pagine di prodotto",
-    "ja": "商品ページ",
-    "ko": "제품 페이지",
-    "nb": "Produktsider",
-    "nl": "Productpagina's",
-    "pl": "Strony produktu",
-    "pt-BR": "Páginas de produtos",
-    "pt-PT": "Páginas de produtos",
-    "sv": "Produktsidor",
-    "th": "หน้าสินค้า",
-    "tr": "Ürün sayfaları",
-    "vi": "Trang sản phẩm",
-    "zh-CN": "产品页面",
-    "zh-TW": "產品頁面"
-  },
+  "name": "Product pages",
+  "max_blocks": 6,
   "settings": [
     {
       "type": "checkbox",
@@ -688,7 +732,54 @@
         "zh-TW": "啟用影片循環功能"
       },
       "default": false
-    }
-  ]
+    },
+    {
+      "type": "text",
+      "id": "show_warranty",
+      "label": "Warranty text:",
+      "default": "365 DAY WARRANTY"
+    },
+    {
+      "type": "text",
+      "id": "show_shipping",
+      "label": "Shipping text:",
+      "default": "FREE SHIPPING OVER $50"
+    },
+    {
+      "type": "header",
+      "content": "Product features"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "I6 KEY G2G BAR BENEFITS"
+  },
+  {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "healthy. fresh. delicious."
+  },
+  {
+    "type": "checkbox",
+    "id": "cursive",
+    "label": "Subheading cursive",
+    "default": true
+}
+  ],
+  "blocks": [
+  {
+    "type": "feature",
+    "name": "Feature",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "icon",
+        "label": "Icon (Image png)"
+      }
+    ]
+  }
+]
 }
 {% endschema %}

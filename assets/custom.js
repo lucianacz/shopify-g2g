@@ -38,4 +38,25 @@ $('.logo-bar').slick({
   ]
 });
 
+$('.block-slider').slick({
+  dots: false,
+  arrows: true,
+  autoplay: false,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1000,
+      settings: 'unslick'
+    }
+  ]
+});
 
+
+$('.meta-photos').slick({
+  dots: true,
+  arrows: true,
+  autoplay: false,
+  slidesToShow: 1,
+  slidesToScroll: 1
+});

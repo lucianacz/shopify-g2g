@@ -1,0 +1,110 @@
+<div class="page-width life-recipes">
+    {% if section.settings.title != blank %}
+    <h4 class="section-subtitle {% if section.settings.cursive %}cursive{% endif %}">
+        {{ section.settings.subtitle | escape }}</h4>
+    {% endif %}
+
+    {% if section.settings.title != blank %}
+    <h2 class="h1 section-title">{{ section.settings.title | escape }}</h2>
+    {% endif %}
+
+    <div class="grid grid--no-gutters block-slider">
+
+        {% for block in section.blocks %}
+        {% if block.settings.url != blank %}
+        <a class="grid__item" href="{{ block.settings.url }}">
+            {% endif %}
+            <div class="image-bar__item image-bar__item--{{ block.id }} box ratio-container lazyload"
+                data-bgset="{% include 'bgset', image: block.settings.image %}" data-sizes="auto"
+                data-parent-fit="cover" data-image-loading-animation>
+                <div class="image-bar__item">
+                    <div class="image-bar__content image-bar__overlay">
+                        {% if block.settings.image == blank %}
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="image-bar__text">
+                {% if block.settings.text != blank %}
+                <h3>{{ block.settings.text }}</h3>
+                {% endif %}
+
+                {% if block.settings.description != blank %}
+                {{ block.settings.description }}
+                {% endif %}
+
+                <p class="btn-link">Read more</p>
+               
+            </div>
+
+
+            <noscript>
+                <div class="grid__item {{ column_size }}" {{ block.shopify_attributes }}>
+                    <div class="image-bar__item image-bar__item--{{ block.id }}"
+                        style="background-image: url({{ block.settings.image | img_url: '2048x' }});"></div>
+                </div>
+            </noscript>
+        {% if block.settings.url != blank %}
+        </a>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+    {% schema %}
+    {
+        "name": "Gallery",
+        "class": "index-section",
+        "max_blocks": 6,
+        "settings": [
+        {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "G2G BAR RECIPES"
+        },
+        {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subheading",
+        "default": "recipes for your next adventure"
+        },
+        {
+        "type": "checkbox",
+        "id": "cursive",
+        "label": "Subheading cursive",
+        "default": true
+        }
+        ],
+        "blocks": [
+            {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+            {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+            },
+            {
+            "type": "text",
+            "id": "text",
+            "label": "Heading"
+            },
+            {
+                "type": "richtext",
+                "id": "description",
+                "label": "Description"
+            },
+            {
+                "type": "url",
+                "id": "url",
+                "label": "Link"
+            }
+          ]
+        }
+        ]
+    }
+    {% endschema %}

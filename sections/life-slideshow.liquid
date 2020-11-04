@@ -1,0 +1,60 @@
+{% style %}
+.heading{
+    color: {{ section.settings.font-color }}
+}
+.hero-background{
+    background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url({{ section.settings.image | img_url: '2048x' }});
+}
+{% endstyle %}
+<div class="hero hero--{{ section.settings.hero_size }} hero-{{ section.id }} hero-background">
+
+    <div class="hero__inner">
+        <div class="page-width text-center">
+            {%- if section.settings.image-logo != blank -%}
+                <img class="logo-img" src="{{ section.settings.image-logo | img_url: '300x' }}">
+            {%- endif -%}
+
+            {%- if section.settings.title != blank -%}
+            <h2 class="h1 heading" style="color: {{ section.settings.font-color }}">
+                {{ section.settings.title | escape }}</h2>
+            {%- endif -%}
+
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image with text overlay",
+  "class": "index-section index-section--flush img-overlay life-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image desktop"
+    },
+    {
+        "type": "image_picker",
+        "id": "image-logo",
+        "label": "Logo Image"
+      },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Image with text overlay"
+    },
+    {
+        "type": "header",
+        "content": "Color"
+    },
+    {
+        "type": "color",
+        "id": "font-color",
+        "label": "Font",
+        "default": "#ffffff"
+    }
+  ]
+}
+{% endschema %}
+
