@@ -2,11 +2,6 @@
 .image-text-amb{
   background-color: {{ section.settings.background-color}};
 }
-@media screen and (min-width: 768px){
-  .image-text-amb{
-    background-color: {{ section.settings.background-section}};
-  }
-}
 
 .line{
   color: {{ section.settings.color-line }};
@@ -49,7 +44,7 @@
         {{ image_layout }}
       {% endif %}
   
-      <div class="feature-row__item page-width feature-row__text feature-row__text--{{ section.settings.layout }}" style="background-color: {{ section.settings.background-color}};">
+      <div class="feature-row__item feature-row__text feature-row__text--{{ section.settings.layout }}" style="background-color: {{ section.settings.background-section}};">
         {% if section.settings.title != blank %}
           <h2 class="h3">{{ section.settings.title | escape }}</h2>
           <div class="line line-amb"></div>
@@ -71,6 +66,7 @@
   
           <a target="_blank" href="{{ section.settings.button_link }}"
             class="btn"
+            style="background-color:{{section.settings.color-line}}"
             aria-label="{{ ariaLabel }}">
             {{- section.settings.button_label | escape -}}
           </a>
@@ -88,7 +84,7 @@
   {% schema %}
   {
     "name": "Image with text",
-    "class": "index-section image-text-amb",
+    "class": "index-section image-text-amb img-workout",
     "settings": [
       {
         "type": "image_picker",
@@ -145,15 +141,9 @@
       },
       {
         "type": "color",
-        "id": "background-color",
-        "label": "Background content",
-        "default": "#ffffff"
-      },
-      {
-        "type": "color",
-        "label": "Color line",
+        "label": "Color line & Button",
         "id": "color-line",
-        "default": "#479a9a"
+        "default": "#9fbf4c"
       }
     ]
   }

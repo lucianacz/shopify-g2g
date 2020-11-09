@@ -1,0 +1,57 @@
+<div class="video-work" style="background-color: {{ section.settings.background-color }}">
+    <div class="page-width about-video">
+    
+        <div class="video-block">
+            <iframe src="{{ section.settings.video_link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    
+        <div class="text">
+        {% if section.settings.title != blank %}
+        <h2 style="color: {{ section.settings.color }}">{{ section.settings.title | escape }}</h2>
+        {% endif %}
+    
+        {% if section.settings.subtitle != blank %}
+        <p style="color: {{ section.settings.color }}"> {{ section.settings.subtitle | escape }}</p>
+        {% endif %}
+        </div>
+    </div>
+    </div>
+    
+    {% schema %}
+    {
+      "name": "Video",
+      "class": "index-section--flush",
+      "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "G2G BAR'S HISTORY"
+        },
+        {
+        "type": "text",
+        "id": "subtitle",
+        "label": "subheading",
+        "default": "learn more about"
+        },
+        {
+        "type": "text",
+        "id": "video_link",
+        "label": "Video Embed"
+        },
+        {
+            "type": "color",
+            "id": "background-color",
+            "label": "Background color",
+            "default": "#9fbf4c"
+        },
+        {
+            "type": "color",
+            "id": "color",
+            "label": "Font color",
+            "default": "#ffffff"
+        }
+      ]
+    }
+    {% endschema %}
+    

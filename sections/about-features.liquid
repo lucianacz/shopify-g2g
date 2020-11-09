@@ -1,0 +1,102 @@
+<div class="page-width feature-row feature-section">
+   
+
+    <div class="feature-row__item big-img">
+        {% if section.settings.image != blank %}
+        {{ section.settings.image | img_url: '600x' | img_tag }}
+        {% endif %}
+
+
+        <div class="text">
+            <h2 class="h1">{{ section.settings.title | escape }}</h2>
+            <p> {{section.settings.description}}</p>
+            <h4 class="section-subtitle cursive">{{ section.settings.subtitle | escape }}</h4>
+            <div class="icons">
+            {%- for block in section.blocks -%}
+            <div class="feature-row__text">
+                {% if block.settings.icon != blank %}
+                {{ block.settings.icon | img_url: '100x' | img_tag }}
+                {% endif %}
+                <div class="text">
+                    {% if block.settings.title != blank %}
+                    <h2 class="h3">{{ block.settings.title | escape }}</h2>
+                    {% endif %}
+                    {% if block.settings.info != blank %}
+                    <div class="rte rte-setting featured-row__subtext">{{ block.settings.info }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+    {%- capture ariaLabel -%}
+    {{- section.settings.button_label -}}
+    {%- if section.settings.button_link.type == 'frontpage_link' -%}
+    : {{ 'homepage.general.title' | t -}}
+    {%- elsif section.settings.button_link.type == 'catalog_link' -%}
+    : {{ 'collections.catalog.title' | t -}}
+    {%- elsif section.settings.button_link.object.title -%}
+    : {{ section.settings.button_link.object.title -}}
+    {%- endif -%}
+    {%- endcapture -%}
+
+    <a href="{{ section.settings.button_link }}" class="btn" aria-label="{{ ariaLabel }}"
+        style="color: {{ section.settings.color-button}}; background-color: {{section.settings.background-button}}">
+        {{- section.settings.button_label | escape -}}
+    </a>
+    {% endif %}
+
+</div>
+  
+  
+  
+  {% schema %}
+  {
+    "name": "Image with features",
+    "class": "index-section about-features",
+    "max_blocks": 5,
+    "settings":
+    [
+        {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Image with text"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description"
+        },
+        {
+            "type": "text",
+            "id": "subtitle",
+            "label": "subheading",
+            "default": "What's in our bars"
+        }
+    ],
+    "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon (Image png)"
+        }
+      ]
+    }
+  ]
+  }
+  {% endschema %}
+  

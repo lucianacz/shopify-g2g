@@ -1,0 +1,47 @@
+<div class="sentence" style="background-color: {{ section.settings.background}}">
+    <div class="page-width">
+        {% if section.settings.sentence != blank %}
+        <h4 class="section-subtitle cursive" style="color: {{ section.settings.font}}">
+            {{ section.settings.sentence | escape }}</h4>
+        {% endif %}
+
+        {% if section.settings.who != blank %}
+        <p style="color: {{ section.settings.font}}">{{ section.settings.who }}</p>
+        {% endif %}
+
+    </div>
+</div>
+
+
+    {% schema %}
+    {
+        "name": "Title",
+        "class": "index-section",
+        "settings": [
+        {
+        "type": "text",
+        "id": "who",
+        "label": "WHO:",
+        "default": "CASEY CHILD - OWNER & FOUNDER OF G2G BAR"
+        },
+        {
+        "type": "text",
+        "id": "sentence",
+        "label": "SENTENCE:",
+        "default": "'I just made the bars for me; it's kind of cool that other people like them too.'"
+        },
+        {
+            "type": "color",
+            "id": "background",
+            "label": "Background color",
+            "default": "#f3a633"
+        },
+        {
+            "type": "color",
+            "id": "font",
+            "label": "Font color",
+            "default": "#ffffff"
+        }
+        ]
+    }
+    {% endschema %}

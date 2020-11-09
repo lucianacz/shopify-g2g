@@ -1,0 +1,66 @@
+<div class="page-width">
+    {% if section.settings.title != blank %}
+    <h4 class="section-subtitle {% if section.settings.cursive %}cursive{% endif %}">
+        {{ section.settings.subtitle | escape }}</h4>
+    {% endif %}
+
+    {% if section.settings.title != blank %}
+    <h2 class="h1 section-title">{{ section.settings.title | escape }}</h2>
+    {% endif %}
+
+
+<div class="video-blocks">
+    {%- for block in section.blocks -%}
+    <div class="video-block">
+        <iframe src="{{ block.settings.video_link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p class="cursive">{{ block.settings.description }}</p>
+    </div>
+  {% endfor %}
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "Video",
+  "class": "index-section",
+  "max_blocks": 2,
+  "settings": [
+  {
+    "type": "text",
+    "id": "title",
+    "label": "Heading",
+    "default": "G2G BAR'S HISTORY"
+    },
+    {
+    "type": "text",
+    "id": "subtitle",
+    "label": "subheading",
+    "default": "learn more about"
+    },
+    {
+    "type": "checkbox",
+    "id": "cursive",
+    "label": "Subheading cursive",
+    "default": true
+    }
+  ],
+  "blocks":[
+    {
+        "type": "Video",
+        "name": "Video",
+        "settings": [
+            {
+                "type": "text",
+                "id": "video_link",
+                "label": "Video Embed"
+            },
+            {
+                "type": "text",
+                "id": "description",
+                "label": "Video title"
+            }
+        ]
+    }
+  ]
+}
+{% endschema %}

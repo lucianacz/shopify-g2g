@@ -1,0 +1,130 @@
+<div class="page-width blog">
+    {% if section.settings.title != blank %}
+    <h4 class="section-subtitle {% if section.settings.cursive %}cursive{% endif %}">
+        {{ section.settings.subtitle | escape }}</h4>
+    {% endif %}
+
+    {% if section.settings.title != blank %}
+    <h2 class="h1 section-title">{{ section.settings.title | escape }}</h2>
+    {% endif %}
+</div>
+
+{%- for block in section.blocks -%}
+<div class="blog">
+    <div class="feature-row">
+        {% capture image_layout %}
+        <div class="feature-row__item row_image">
+            {% if block.settings.image != blank %}
+            {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            {% include 'image-style', image: block.settings.image, height: 545, wrapper_id: wrapper_id, img_id: img_id %}
+            <div id="{{ wrapper_id }}" class="feature-row__image-wrapper js">
+                <div style="padding-top:{{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100}}%;"
+                    data-image-loading-animation>
+                    <img id="{{ img_id }}" class="feature-row__image lazyload" data-src="{{ img_url }}"
+                        data-aspectratio="{{ block.settings.image.aspect_ratio }}" data-sizes="auto"
+                        alt="{{ block.settings.image.alt | escape }}">
+                </div>
+            </div>
+
+            <noscript>
+                {{ block.settings.image | img_url: '600x600', scale: 2 | img_tag: block.settings.image.alt, 'feature-row__image' }}
+            </noscript>
+            {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+        </div>
+        {% endcapture %}
+
+        <div class="feature-row">
+            {% if block.settings.layout == 'left' %}
+            {{ image_layout }}
+            {% endif %}
+
+            <div class="feature-row__item page-width feature-row__text feature-row__text--{{ block.settings.layout }}">
+                {% if block.settings.title != blank %}
+                <h2 class="h3">{{ block.settings.title | escape }}</h2>
+                {% endif %}
+                {% if block.settings.text != blank %}
+                <div class="rte rte-setting featured-row__subtext">{{ block.settings.text }}</div>
+                {% endif %}
+
+            </div>
+
+            {% if block.settings.layout == 'right' %}
+            {{ image_layout }}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+  
+  
+  
+  {% schema %}
+  {
+    "name": "Image with text",
+    "class": "blog-sections",
+    "settings": [
+    {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "WHAT TO EXPECT"
+        },
+        {
+        "type": "text",
+        "id": "subtitle",
+        "label": "subheading",
+        "default": "this is who we are"
+        },
+        {
+        "type": "checkbox",
+        "id": "cursive",
+        "label": "Subheading cursive",
+        "default": true
+        }
+        ],
+    "blocks":[
+    {
+        "type": "Photo",
+        "name": "Photo",
+        "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "select",
+            "id": "layout",
+            "label":"Image alignment",
+            "default": "left",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading"
+            },
+           {
+               "type": "richtext",
+               "id": "text",
+               "label": "Text"
+           }
+        ]
+    }
+    ]
+  }
+  {% endschema %}
+  

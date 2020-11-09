@@ -103,7 +103,7 @@
               {%- if show_link_button -%}
               <div
                 class="slideshow__btn-wrapper{% if block.settings.slide_title != blank or block.settings.subheading != blank %} slideshow__btn-wrapper--push{% endif %}">
-                <a href="#about" class="btn">
+            <a href="#about" class="btn" style="background-color: {{ block.settings.color-button}}">
                   {{ block.settings.button_label | escape }}
                 </a>
               </div>
@@ -186,7 +186,7 @@
     "zh-CN": "幻灯片",
     "zh-TW": "素材輪播"
   },
-  "class": "index-section index-section--flush index-section--slideshow",
+  "class": "index-section index-section--flush index-section--slideshow slideshow-img",
   "max_blocks": 6,
   "settings": [
     {
@@ -1142,6 +1142,7 @@
         {
           "type": "text",
           "id": "button_label",
+          "info": "Button redirect to About section",
           "label": {
             "cs": "Text tlačítka",
             "da": "Knaptekst",
@@ -1171,6 +1172,12 @@
         "id": "color",
         "label": "Text color",
         "default": "#ffffff"
+        },
+        {
+            "type": "color",
+            "id": "color-button",
+            "label": "Button color",
+            "default": "#9fbf4c"
         },
         {
           "type": "image_picker",

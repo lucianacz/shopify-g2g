@@ -31,6 +31,10 @@
   {% if section.blocks.size == 0 %}
     {% include 'no-blocks' %}
   {% endif %}
+
+  {% if section.settings.button != blank and section.settings.url != blank%}
+  <a class="btn" href="{{section.settings.url}}">{{section.settings.button}}</a>
+  {% endif %}
 </div>
 
 
@@ -58,6 +62,17 @@
       "id": "cursive",
       "label": "Subheading cursive",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Text button",
+      "default": "GO TO STORES"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "URL"
     }
   ],
   "blocks": [
