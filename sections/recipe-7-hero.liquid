@@ -1,0 +1,71 @@
+{% style %}
+.img-hero{
+   
+}
+.hero-background{
+    background-image: url({{ section.settings.image | img_url: '2048x' }});
+}
+{% endstyle %}
+<div class="hero__inner" style=" background-color: {{ section.settings.background-color }};">
+        {%- if section.settings.title != blank -%}
+        <h2 class="h1 heading-ambassador" style="color: {{ section.settings.font-color }}">
+            {{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.url != blank and section.settings.instagram != blank-%}
+        <a href="{{section.settings.url}}" target="_blank" style="color: {{ section.settings.font-color }}">
+        {{section.settings.instagram}}</a>
+        {%- endif -%}
+</div>
+
+{%- if section.settings.image != blank -%}
+<div class="hero hero-background">
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Image with text overlay",
+  "class": "page-width img-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image desktop"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Healthy Banana Split"
+    },
+    {
+      "type": "text",
+      "id": "instagram",
+      "label":"@username",
+      "default": "@apaigeofpositivity"
+    },
+    {
+        "type": "url",
+        "id": "url",
+        "label": "Link URL"
+    },
+    {
+        "type": "header",
+        "content": "Color"
+    },
+    {
+        "type": "color",
+        "id": "font-color",
+        "label": "Font",
+        "default": "#ffffff"
+    },
+    {
+        "type": "color",
+        "id": "background-color",
+        "label": "Background",
+        "default": "#c7b825"
+    }
+  ]
+}
+{% endschema %}

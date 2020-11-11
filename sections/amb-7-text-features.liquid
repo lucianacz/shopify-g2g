@@ -1,0 +1,78 @@
+{% style %}
+.line{
+  color: {{ section.settings.color-line }};
+}
+
+{% endstyle %}
+
+
+<div class="page-width feature-row">
+  
+    <div class="row">
+      {% if section.settings.layout == 'left' %}
+        {{ image_layout }}
+      {% endif %}
+  
+      <div class="feature-row__item feature-row__text feature-row__text--{{ section.settings.layout }}">
+        {% if section.settings.title != blank %}
+          <h2 class="h3">{{ section.settings.title | escape }}</h2>
+          <div class="line"></div>
+        {% endif %}
+        <div class="reasons">
+        {%- for block in section.blocks -%}
+          <h2 class="h3">{{ block.settings.text-feature | escape }}</h2>
+        {% endfor %}
+        </div>
+
+        {% if section.settings.text != blank %}
+          <div class="rte rte-setting featured-row__subtext">{{ section.settings.text }}</div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+  
+  
+  
+  {% schema %}
+  {
+    "name": "Image with text",
+    "class": "index-section image-features-amb",
+    "max_blocks": 3,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "WHY CHOOSE G2G"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+      },
+      {
+        "type": "color",
+        "label": "Color line",
+        "id": "color-line",
+        "default": "#479a9a"
+      }
+    ],
+    "blocks": [
+        {
+        "type": "reasons",
+        "name": "reasons",
+        "settings": [
+        {
+        "type": "text",
+        "id": "text-feature",
+        "label": "WHY"
+        }
+    ]
+    }
+
+    ] 
+  }
+  {% endschema %}
+  
